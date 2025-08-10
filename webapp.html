@@ -42,6 +42,10 @@
       margin-top: 20px;
       border: 3px solid #0d6efd;
     }
+    #scoreDisplay {
+      font-size: 1.2em;
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
@@ -49,6 +53,7 @@
     <h1>🐍 Snake Game</h1>
     <button id="startBtn">Start Game</button>
   </div>
+  <div id="scoreDisplay" style="display:none;">Score: 0</div>
   <canvas id="game" width="400" height="400"></canvas>
 
   <script>
@@ -61,10 +66,14 @@
     let gameInterval;
     let speed = 200;
     let speedTimer;
+    let score = 0;
+
+    const scoreDisplay = document.getElementById("scoreDisplay");
 
     document.getElementById("startBtn").addEventListener("click", () => {
       document.getElementById("intro").style.display = "none";
       canvas.style.display = "block";
+      scoreDisplay.style.display = "block";
       startGame();
     });
 
@@ -74,6 +83,8 @@
       clearInterval(gameInterval);
       clearInterval(speedTimer);
       speed = 200;
+      score = 0;
+      updateScore();
       snake = [{ x: 9 * box, y: 10 * box }];
       direction = "RIGHT";
       placeFood();
@@ -128,21 +139,19 @@
       if (direction === "RIGHT") headX += box;
       if (direction === "DOWN") headY += box;
 
-      // Round positions to avoid floating point errors
-      headX = Math.round(headX / box) * box;
-      headY = Math.round(headY / box) * box;
+      // Wrap around walls
+      if (headX < 0) headX = canvas.width - box;
+      if (headX >= canvas.width) headX = 0;
+      if (headY < 0) headY = canvas.height - box;
+      if (headY >= canvas.height) headY = 0;
 
-      // Check collision with food
+      // Eat food
       if (headX === food.x && headY === food.y) {
         placeFood();
+        score += Math.floor(10 * (200 / speed)); // exponential based on speed
+        updateScore();
       } else {
         snake.pop();
-      }
-
-      // Check collision with walls
-      if (headX < 0 || headX >= canvas.width || headY < 0 || headY >= canvas.height) {
-        endGame();
-        return;
       }
 
       // Check collision with self
@@ -159,11 +168,16 @@
       return array.some(segment => segment.x === head.x && segment.y === head.y);
     }
 
+    function updateScore() {
+      scoreDisplay.textContent = `Score: ${score}`;
+    }
+
     function endGame() {
       clearInterval(gameInterval);
       clearInterval(speedTimer);
-      alert("Game Over!");
+      alert(`Game Over! Final Score: ${score}`);
       canvas.style.display = "none";
+      scoreDisplay.style.display = "none";
       document.getElementById("intro").style.display = "block";
     }
   </script>
