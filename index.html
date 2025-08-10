@@ -36,12 +36,14 @@
 </nav>
 
 <!-- Header -->
-<header class="bg-dark text-white text-center py-5" style="background-image: url('assets/images/beach.jpg'); background-size: cover; background-position: center; height: 300px;">
-<!-- Dark Overlay -->
+<header class="text-white text-center py-5 position-relative" 
+        style="background-image: url('assets/images/beach.jpg'); background-size: cover; background-position: center; height: 300px;">
+  <!-- Dark Overlay -->
   <div class="position-absolute top-0 start-0 w-100 h-100" 
-    style="background-color: rgba(0, 0, 0, 0.4);"></div>
-
-  <div class="container h-100 d-flex align-items-center justify-content-center flex-column">
+       style="background-color: rgba(0, 0, 0, 0.4); z-index: 1;"></div>
+  <!-- Text Content -->
+  <div class="container h-100 d-flex align-items-center justify-content-center flex-column position-relative" 
+       style="z-index: 2;">
     <h1 class="display-4 fw-bold">Ethan Malam</h1>
     <p class="lead">Showcasing my skills, hobbies, and a fun game</p>
   </div>
