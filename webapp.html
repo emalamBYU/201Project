@@ -11,7 +11,7 @@
       font-family: 'Segoe UI', sans-serif;
     }
     canvas {
-      background-color: #003f3f; /* deep teal */
+      background-color: #003f3f;
       display: block;
       margin: 20px auto;
       border: 3px solid #0d6efd;
@@ -44,16 +44,29 @@
     let direction = "RIGHT";
     let food = {};
     let gameInterval;
+    let speed = 200; // initial speed in ms
+    let speedTimer;
 
     document.getElementById("startBtn").addEventListener("click", startGame);
     document.addEventListener("keydown", changeDirection);
 
     function startGame() {
       clearInterval(gameInterval);
+      clearInterval(speedTimer);
+      speed = 200;
       snake = [{ x: 9 * box, y: 10 * box }];
       direction = "RIGHT";
       placeFood();
-      gameInterval = setInterval(draw, 100);
+      gameInterval = setInterval(draw, speed);
+      speedTimer = setInterval(increaseSpeed, 5000); // every 5 seconds
+    }
+
+    function increaseSpeed() {
+      if (speed > 60) {
+        speed -= 10;
+        clearInterval(gameInterval);
+        gameInterval = setInterval(draw, speed);
+      }
     }
 
     function placeFood() {
@@ -76,14 +89,14 @@
 
       // Draw snake
       for (let i = 0; i < snake.length; i++) {
-        ctx.fillStyle = i === 0 ? "#32CD32" : "#7CFC00"; // lime green head and body
+        ctx.fillStyle = i === 0 ? "#32CD32" : "#7CFC00";
         ctx.fillRect(snake[i].x, snake[i].y, box, box);
         ctx.strokeStyle = "#ffffff";
         ctx.strokeRect(snake[i].x, snake[i].y, box, box);
       }
 
       // Draw food
-      ctx.fillStyle = "#FF6347"; // tomato red
+      ctx.fillStyle = "#FF6347";
       ctx.fillRect(food.x, food.y, box, box);
 
       // Move snake
@@ -109,6 +122,7 @@
         collision({ x: headX, y: headY }, snake)
       ) {
         clearInterval(gameInterval);
+        clearInterval(speedTimer);
         alert("Game Over!");
         return;
       }
