@@ -1,51 +1,65 @@
-/* General Dark Mode Styling */
+/* Overall layout and dark mode */
 body {
-    background-color: #121212;
-    color: #e0e0e0;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+  background-color: #040612;
+  color: #d1d5db;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
 }
 
-/* Header Styling */
+/* Header */
 header {
-    background-color: #1f1f1f;
-    text-align: center;
-    padding: 2rem;
-    border-bottom: 2px solid #333;
+  background-color: #273B51;
+  padding: 2rem 1rem;
+  text-align: center;
+  border-bottom: 2px solid #2e323a;
 }
 
 header h1 {
-    margin: 0;
-    font-size: 2.5rem;
+  margin: 0;
+  font-size: 2.8rem;
+  color: #58a6ff;  /* Bright accent like Hammerhead */
 }
 
-header p {
-    font-size: 1.2rem;
-    color: #aaa;
-}
-
-/* Main Sections */
+/* Main Content */
 main {
-    max-width: 800px;
-    margin: auto;
-    padding: 1.5rem;
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
 }
 
 section {
-    margin-bottom: 2rem;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background-color: #141619;
+  border-left: 4px solid #73CAB9; /* Accent bar */
+  border-radius: 4px;
 }
 
 h2 {
-    color: #ff9800; /* Accent color */
+  margin-top: 0;
+  color: #73CAB9;
+  font-size: 1.6rem;
+}
+
+/* Links */
+a {
+  color: #E5F1F4;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #73CAB9;
+  text-decoration: underline;
 }
 
 /* Footer */
 footer {
-    background-color: #1f1f1f;
-    text-align: center;
-    padding: 1rem;
-    border-top: 2px solid #333;
-    font-size: 0.9rem;
-    color: #777;
+  background-color: #1a1c22;
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+  color: #E5F1F4;
+  border-top: 2px solid #273B51;
 }
